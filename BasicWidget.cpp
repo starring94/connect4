@@ -30,7 +30,7 @@ string BasicWidget::getValues() {
             ")\nisSelected=BOOLEAN(" + ((isSelected) ? "TRUE" : "FALSE") + ")";
 }
 
-vector<int> getPosition() {
+vector<int> BasicWidget::getPosition() {
     return { _x, _y };
 }
 

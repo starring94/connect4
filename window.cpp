@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <ctime>
 #include <sstream>
+#include <string>
 
 using namespace std;
 using namespace genv;
@@ -83,6 +84,8 @@ void window::event_loop() {
             m_widgets[focus]->handleWidgetEvent(ev);
         }
         drawWidgets();
+        string asd = "" + to_string((ev.pos_x != 0) ? ev.pos_x : 0) + ";" + to_string((ev.pos_y) ? ev.pos_y : 0);
+        gout << move_to(50, 50) << color(255, 255, 255) << text(asd);
     }
 }
 
