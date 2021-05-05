@@ -10,7 +10,7 @@ using namespace std;
 using namespace genv;
 using namespace Constants;
 
-C4PieceWidget::C4PieceWidget(window* parent, int x, int y, int r, int g, int b, int partSize): BasicWidget(parent, x, y, 0, 0), m_r(r), m_g(g), m_b(b), m_partSize(partSize), m_parentRow(new C4BoardRowWidget(parent, x, y, -1, 0)), m_partPieces({}), m_columnNumber(0), m_rowNumber(0)
+C4PieceWidget::C4PieceWidget(window* parent, int x, int y, int r, int g, int b, int partSize): BasicWidget(parent, x, y, 0, 0), m_r(r), m_g(g), m_b(b), m_partSize(partSize), m_parentRow(new C4BoardRowWidget(parent, x, y, -1, 0, 0)), m_partPieces({}), m_columnNumber(0), m_rowNumber(0)
 {
 }
 
@@ -38,7 +38,7 @@ void C4PieceWidget::drawWidget() {
 }
 
 void C4PieceWidget::moveWidget() {
-    int val = m_parentRow->getColumnSize() - 1 - m_rowNumber;
+    int val = m_parentRow->getColumnSize() - 1 - m_columnNumber;
     if(_y < m_partPieces[val]->getPosition()[1]+m_partSize) {
         _y+=5;
         vector<int> yPos;
