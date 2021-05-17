@@ -10,7 +10,7 @@ class MainWindow : public window {
 protected:
     C4Board* board;
 public:
-    MainWindow(): window(X, Y, 20) {
+    MainWindow(): window(X, Y, 40) {
         board = new C4Board(this, 190, 200, 7, 6, 30);
     }
 };
