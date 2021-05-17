@@ -4,17 +4,16 @@
 #include <math.h>
 #include <vector>
 #include <algorithm>
-#include <iostream>
 
 using namespace std;
 using namespace genv;
 using namespace Constants;
 
-C4PieceWidget::C4PieceWidget(window* parent, int x, int y, int r, int g, int b, int partSize): BasicWidget(parent, x, y, 0, 0), m_r(r), m_g(g), m_b(b), m_partSize(partSize), m_parentRow(new C4BoardRowWidget(parent, x, y, -1, 0, 0)), m_partPieces({}), m_columnNumber(0), m_rowNumber(0)
+C4PieceWidget::C4PieceWidget(window* parent, int x, int y, int r, int g, int b, int partSize, C4Board* board): BasicWidget(parent, x, y, 0, 0), m_r(r), m_g(g), m_b(b), m_partSize(partSize), m_parentRow(new C4BoardRowWidget(parent, x, y, -1, 0, 0, board)), m_partPieces({}), m_columnNumber(0), m_rowNumber(0), m_board(board)
 {
 }
 
-C4PieceWidget::C4PieceWidget(window* parent, int x, int y, int r, int g, int b, int partSize, C4BoardRowWidget* parentRow, vector<C4BoardPartWidget*> partPieces, int columnNumber, int rowNumber): BasicWidget(parent, x, y, 0, 0), m_r(r), m_g(g), m_b(b), m_partSize(partSize),  m_parentRow(parentRow), m_partPieces(partPieces), m_columnNumber(columnNumber), m_rowNumber(rowNumber)
+C4PieceWidget::C4PieceWidget(window* parent, int x, int y, int r, int g, int b, int partSize, C4BoardRowWidget* parentRow, vector<C4BoardPartWidget*> partPieces, int columnNumber, int rowNumber, C4Board* board): BasicWidget(parent, x, y, 0, 0), m_r(r), m_g(g), m_b(b), m_partSize(partSize),  m_parentRow(parentRow), m_partPieces(partPieces), m_columnNumber(columnNumber), m_rowNumber(rowNumber), m_board(board)
 {
 }
 

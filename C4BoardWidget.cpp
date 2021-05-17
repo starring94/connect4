@@ -2,15 +2,14 @@
 #include "C4BoardRowWidget.hpp"
 #include "GraphicsAdditions.hpp"
 #include <vector>
-#include <iostream>
 
 using namespace std;
 using namespace genv;
 
-C4BoardWidget::C4BoardWidget(window* parent, int x, int y, int numberOfRows, int numberOfColumns, int partSize): BasicWidget(parent, x, y, partSize*2*numberOfRows, numberOfColumns*partSize*2), m_numberOfRows(numberOfRows), m_numberOfColumns(numberOfColumns), m_partSize(partSize)
+C4BoardWidget::C4BoardWidget(window* parent, int x, int y, int numberOfRows, int numberOfColumns, int partSize, C4Board* board): BasicWidget(parent, x, y, partSize*2*numberOfRows, numberOfColumns*partSize*2), m_numberOfRows(numberOfRows), m_numberOfColumns(numberOfColumns), m_partSize(partSize), m_board(board)
 {
     for(int i = 0; i < numberOfRows; i++) {
-        m_boardRows.push_back(new C4BoardRowWidget(parent, x+i*partSize*2, y, numberOfColumns, partSize, i));
+        m_boardRows.push_back(new C4BoardRowWidget(parent, x+i*partSize*2, y, numberOfColumns, partSize, i, board));
     }
 }
 

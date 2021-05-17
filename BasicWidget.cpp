@@ -45,3 +45,7 @@ void BasicWidget::setSelected(bool yes) {
 Mouse BasicWidget::getMouse() {
     return _mouse;
 }
+
+window* BasicWidget::getParent() {
+    return _parent;
+}

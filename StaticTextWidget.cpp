@@ -33,7 +33,11 @@ void StaticTextWidget::drawWidget() {
     gout << Text(_x, _y, _text, colors[0], colors[1], colors[2]);
 }
 
-void StaticTextWidget::handleWidgetEvent(genv::event event) {}
+void StaticTextWidget::handleWidgetEvent(genv::event event) {
+    /*if(event.type == ev_mouse) {
+        _text = to_string((event.pos_x != 0) ? event.pos_x : 0) + ";" + to_string((event.pos_y) ? event.pos_y : 0);
+    }*/
+}
 
 string StaticTextWidget::getText() {
     return _text;

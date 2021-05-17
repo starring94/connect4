@@ -22,6 +22,7 @@ public:
     virtual void other_event(std::string text);
     void addToWidgets(BasicWidget* widget);
     void addListToWidgets(vector<BasicWidget*> widgets);
+    //void deleteWidget(BasicWidget* widget);
 };
 
 #endif // WINDOW_HPP_INCLUDED

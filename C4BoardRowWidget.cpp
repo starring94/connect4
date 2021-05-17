@@ -3,12 +3,12 @@
 #include "C4BoardPartWidget.hpp"
 #include "GraphicsAdditions.hpp"
 #include <vector>
-#include <iostream>
+#include <math.h>
 
 using namespace std;
 using namespace genv;
 
-C4BoardRowWidget::C4BoardRowWidget(window* parent, int x, int y, int columnSize, int boardPartSize, int rowNumber): BasicWidget(parent, x, y, boardPartSize*2, columnSize*2*boardPartSize), m_columnSize(columnSize), m_boardPartSize(boardPartSize), m_rowNumber(rowNumber)
+C4BoardRowWidget::C4BoardRowWidget(window* parent, int x, int y, int columnSize, int boardPartSize, int rowNumber, C4Board* board): BasicWidget(parent, x, y, boardPartSize*2, columnSize*2*boardPartSize), m_columnSize(columnSize), m_boardPartSize(boardPartSize), m_rowNumber(rowNumber), m_board(board)
 {
     for(int i = 0; i < columnSize; i++) {
         m_boardParts.push_back(new C4BoardPartWidget(parent, x, y+(i)*boardPartSize*2, boardPartSize));
@@ -20,17 +20,14 @@ void C4BoardRowWidget::handleWidgetEvent(event event)
     Mouse mouse(event.pos_x, event.pos_y);
     if(event.pos_x != 0 || event.pos_y != 0) {
         _mouse = mouse;
-        //cout << event.pos_x << " " << event.pos_y << endl;
-        //cout << _width << " " << _height << endl;
-        //cout << (mouse.getX() > _x && mouse.getY() > _y && mouse.getX() < _x+_width && mouse.getY() < _y+_height) << endl;
     }
-    if(event.type == ev_mouse && event.button == btn_left) {
+    if(event.type == ev_mouse && event.button == btn_left && isMouseInside(_mouse)) {
         handleWidgetButtonClick(event.button, _mouse);
     }
 }
 
 void C4BoardRowWidget::handleWidgetButtonClick(int button, Mouse &mouse){
-    if(isMouseInside(mouse)) {
+    if(!m_board->getWinCondition()) {
         addNewPiece();
     }
 }
@@ -40,7 +37,22 @@ bool C4BoardRowWidget::isMouseInside(Mouse &mouse) {
 }
 
 void C4BoardRowWidget::drawWidget() {
-    gout << Box(_x, _y-5-m_boardPartSize*2, _width, _height, 155, 255, 255);
+    if(isMouseInside(_mouse)) {
+        vector<int> colors;
+        if(m_board->getCurrentPlayer() == 0) {
+            colors = {255, 0, 0};
+        } else {
+            colors = {0, 0, 255};
+        }
+        int radius = m_boardPartSize;
+        for(int dx = -radius; dx <= radius; dx++) {
+            for(int dy = -radius; dy <= radius; dy++) {
+                if((pow(dx, 2)+pow(dy, 2)) <= pow(radius,2)) {
+                    gout << Dot(_x+dx+m_boardPartSize, _y+dy-m_boardPartSize, colors[0], colors[1], colors[2]);
+                }
+            }
+        }
+    }
 }
 
 string C4BoardRowWidget::getValues()
@@ -49,9 +61,15 @@ string C4BoardRowWidget::getValues()
 }
 
 void C4BoardRowWidget::addNewPiece() {
-    // c4_1 = new C4PieceWidget(this, 500, 100-5, 255, 0, 0);
     if((int)m_pieces.size() != m_columnSize) {
-        m_pieces.push_back(new C4PieceWidget(_parent, _x+m_boardPartSize, _y-5, 255, 0, 0, m_boardPartSize, this, m_boardParts, (m_pieces.size() == 0) ? 0 : m_pieces.size(), m_rowNumber));
+        vector<int> colors;
+        if(m_board->getCurrentPlayer() == 0) {
+            colors = {255, 0, 0};
+        } else {
+            colors = {0, 0, 255};
+        }
+        m_board->handleButtonClick(m_rowNumber, (m_pieces.size() == 0) ? 0 : m_pieces.size());
+        m_pieces.push_back(new C4PieceWidget(_parent, _x+m_boardPartSize, _y-5, colors[0], colors[1], colors[2], m_boardPartSize, this, m_boardParts, (m_pieces.size() == 0) ? 0 : m_pieces.size(), m_rowNumber, m_board));
     }
 }
 

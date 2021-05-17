@@ -41,7 +41,7 @@ void BaseButtonWidget::drawWidget() {
     }
     gout << Box(_x, _y, _width, _height, colors[0], colors[1], colors[2]);
     gout << Box(_x+BOX_BORDER, _y+BOX_BORDER, _width-BOX_BORDER*2, _height-BOX_BORDER*2, btncolors[0], btncolors[1], btncolors[2]);
-    gout << Text(_x+BOX_BORDER+(_width/2-gout.twidth(m_text)/2), _y+_height/2, m_text, colors[0], colors[1], colors[2]);
+    gout << Text(_x+BOX_BORDER+(_width/2-gout.twidth(m_text)/2-2), _y+_height/1.75+2, m_text, colors[0], colors[1], colors[2]);
 }
 
 void BaseButtonWidget::handleWidgetEvent(event event){

@@ -3,7 +3,6 @@
 #include "graphics.hpp"
 #include <fstream>
 #include <vector>
-#include <iostream>
 #include <iomanip>
 #include <ctime>
 #include <sstream>
@@ -83,9 +82,15 @@ void window::event_loop() {
         if (focus!=-1) {
             m_widgets[focus]->handleWidgetEvent(ev);
         }
+        if(selected != -1) {
+            m_widgets[selected]->drawWidget();
+        }
+        if(focus != -1) {
+            m_widgets[focus]->drawWidget();
+        }
         drawWidgets();
-        string asd = "" + to_string((ev.pos_x != 0) ? ev.pos_x : 0) + ";" + to_string((ev.pos_y) ? ev.pos_y : 0);
-        gout << move_to(50, 50) << color(255, 255, 255) << text(asd);
+        //string asd = "" + to_string((ev.pos_x != 0) ? ev.pos_x : 0) + ";" + to_string((ev.pos_y) ? ev.pos_y : 0);
+        //gout << move_to(50, 50) << color(255, 255, 255) << text(asd);
     }
 }
 
@@ -100,3 +105,12 @@ void window::addListToWidgets(vector<BasicWidget*> widgets) {
         m_widgets.push_back(widgets[i]);
     }
 }
+
+/*void window::deleteWidget(BasicWidget* widget) {
+    for(size_t i = 0; i < m_widgets.size(); i++) {
+        if(m_widgets[i] == widget) {
+            BasicWidget* temp = m_widgets[i];
+            m_widgets.erase(m_widgets.begin()+i);
+        }
+    }
+}*/

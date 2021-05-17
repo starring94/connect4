@@ -23,6 +23,7 @@ public:
     void setMouseValue(int x, int y);
     void setSelected(bool yes);
     Mouse getMouse();
+    window* getParent();
 };
 
 #endif // BasicWidget_HPP_INCLUDED
